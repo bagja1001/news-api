@@ -1,0 +1,94 @@
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+header {
+    background: #333;
+    color: #fff;
+    padding: 1rem;
+    text-align: center;
+}
+
+.search-container {
+    margin-top: 1rem;
+}
+
+#searchInput {
+    width: 80%;
+    max-width: 400px;
+    padding: 0.5rem;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: none;
+}
+
+#news-container {
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap; /* Baris ini yang membuat item turun ke baris baru */
+    justify-content: space-between; /* Menambahkan ruang di antara kolom */
+}
+
+.news-item {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    /* Atur lebar setiap item agar bisa muat dalam satu baris, misalnya 3 kolom */
+    width: calc(33.33% - 20px); 
+}
+
+.news-image {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+.news-item h2 {
+    margin-top: 0;
+}
+
+.news-item a {
+    text-decoration: none;
+    color: #007BFF;
+}
+
+.news-item a:hover {
+    text-decoration: underline;
+}
+
+.timestamp {
+    color: #666;
+    font-size: 0.9em;
+}
+
+@media (max-width: 900px) {
+    .news-item {
+        width: calc(50% - 15px); /* Tampilan 2 kolom untuk tablet */
+    }
+}
+
+@media (max-width: 600px) {
+    header h1 {
+        font-size: 1.5rem;
+    }
+
+    #searchInput {
+        width: 90%;
+    }
+
+    .news-item {
+        width: 100%; /* Kembali menjadi 1 kolom untuk handphone */
+        padding: 15px;
+    }
+}

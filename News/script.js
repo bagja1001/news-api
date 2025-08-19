@@ -1,3 +1,4 @@
+// API Keys
 const NEWS_API_KEY = '86d7205e36b348e18891af00625480b4';
 const NEWSDATA_API_KEY = 'pub_b8e3b9179d544dfbaaf0d4278ab4b099';
 const NEWYORK_API_KEY = 'NkzcdWOLtir4dA2zFtM7pKWnzWyHXOzP';
@@ -69,17 +70,22 @@ async function fetchNews() {
     newsContainer.innerHTML = '<p class="error">Gagal memuat berita. Mohon coba lagi nanti.</p>';
   }
 }
-
-// Tampilkan berita ke halaman
+// Filter hanya artikel yang mengandung "AI" sebelum ditampilkan
 function displayNews(articles) {
   newsContainer.innerHTML = '';
 
-  if (articles.length === 0) {
-    newsContainer.innerHTML = '<p>Tidak ada berita ditemukan.</p>';
+  // Filter artikel yang mengandung 'AI' di title atau description
+  const aiArticles = articles.filter(article => {
+    const title = article.title?.toLowerCase() || '';
+    const description = article.description?.toLowerCase() || '';
+    return title.includes('ai') || description.includes('ai');
+  });
+
+  if (aiArticles.length === 0) {
+    newsContainer.innerHTML = '<p>Tidak ada berita AI ditemukan.</p>';
     return;
   }
-
-  articles.forEach(article => {
+  aiArticles.forEach(article => {
     const articleElement = document.createElement('div');
     articleElement.classList.add('news-item');
 
@@ -90,7 +96,7 @@ function displayNews(articles) {
     articleElement.innerHTML = `
       <h2><a href="${article.url}" target="_blank">${article.title}</a></h2>
       <p class="timestamp">${timestamp}</p>
-      ${article.image ? `<img src="${article.image}" alt="News Image" style="max-width:300px;border-radius:10px;margin:10px 0;">` : ''}
+      ${article.image ? `<img src="${article.image}" alt="News Image">` : ''}
       <p>${article.description || 'Tidak ada deskripsi.'}</p>
     `;
 
@@ -105,7 +111,7 @@ function handleSearch() {
 
   newsItems.forEach(item => {
     const title = item.querySelector('h2').innerText.toLowerCase();
-    const description = item.querySelector('p').innerText.toLowerCase();
+    const description = item.querySelector('p:last-of-type').innerText.toLowerCase();
 
     if (title.includes(query) || description.includes(query)) {
       item.style.display = 'block';
